@@ -19,5 +19,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".OpenGLES20Activity"></activity>
+        <activity android:name=".UserProfile"></activity>
     </application>
 </manifest>

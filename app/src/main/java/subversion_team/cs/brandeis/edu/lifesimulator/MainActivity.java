@@ -1,6 +1,7 @@
 package subversion_team.cs.brandeis.edu.lifesimulator;
 
 import android.content.Intent;
+import android.opengl.GLSurfaceView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -15,6 +16,7 @@ public class MainActivity extends AppCompatActivity {
 
     Button button_start, button_save, button_stop;
     ImageButton button_user_profile;
+    private GLSurfaceView mGLView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
 
         switch (v.getId()) {
             case R.id.id_start:
-                //start_game(v);
+                start_game(v);
                 break;
             case R.id.id_stop:
                 //stop_game(v);
@@ -50,13 +52,18 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-//    //send intent to start game
-//    public void start_game(View view)
-//    {
-//        //Intent intent = new Intent(this, UtilityActivity.class);
-//        //startActivity(intent);
-//        //startActivityForResult(intent,1);
-//    }
+    //send intent to start game
+    public void start_game(View view)
+    {
+        /*
+        Intent intent = new Intent(this, UtilityActivity.class);
+        startActivity(intent);
+        startActivityForResult(intent,1);
+        */
+        // Create a GLSurfaceView instance and set it as the ContentView for this Activity.
+        mGLView = new AlyssaGLSurfaceView(this);
+        setContentView(mGLView);
+    }
 
     //send intent to stop game
 //    public void stop_game(View view)

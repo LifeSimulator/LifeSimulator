@@ -8,6 +8,6 @@ public class World extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(new Painter(this));
+        setContentView(new PainterView(this));
     }
 }

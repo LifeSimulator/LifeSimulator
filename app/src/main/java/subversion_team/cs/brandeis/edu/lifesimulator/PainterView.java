@@ -9,7 +9,7 @@ import android.util.DisplayMetrics;
 import android.view.View;
 
 
-public class Painter extends View {
+public class PainterView extends View {
 
     private static final String LIVE_CELL_HEX = "#CC99FF";
     private static final String DEAD_CELL_HEX = "#FF66CC";
@@ -20,7 +20,7 @@ public class Painter extends View {
     private int boardWidth;
     private int boardHeight;
 
-    public Painter(Context context) {
+    public PainterView(Context context) {
         super(context);
 
         // Init Paint colors

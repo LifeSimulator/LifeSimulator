@@ -20,6 +20,8 @@ public class PainterView extends View {
     private int boardWidth;
     private int boardHeight;
 
+    private int count = 0;
+
     public PainterView(Context context) {
         super(context);
 
@@ -41,6 +43,8 @@ public class PainterView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+        setFocusable(true);
+        setFocusableInTouchMode(true);
         drawCheckerboard(canvas);
     }
 

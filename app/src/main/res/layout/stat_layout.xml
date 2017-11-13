@@ -12,9 +12,11 @@
 
         <TableRow
             android:id="@+id/tableRow1"
-            android:stretchColumns="*"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_span="2"
-            android:padding="5dip">
+            android:padding="5dip"
+            android:stretchColumns="*">
 
             <ImageView
                 android:id="@+id/trophyView1"

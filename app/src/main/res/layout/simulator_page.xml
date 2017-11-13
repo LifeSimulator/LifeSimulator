@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/RLayout"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content">
+
+    <ImageButton
+        android:id="@+id/id_user_profile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="goto_userprofile"
+        android:src="@android:drawable/ic_menu_search" />
+
+    <Button
+        android:id="@+id/id_start"
+        android:layout_width="125dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:onClick="start_game"
+        android:text="@string/button_start" />
+
+    <Button
+        android:id="@+id/id_stop"
+        android:layout_width="125dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:onClick="stop_game"
+        android:text="@string/button_stop" />
+
+    <Button
+        android:id="@+id/id_save"
+        android:layout_width="125dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:onClick="save_pic"
+        android:text="@string/button_save" />
+</RelativeLayout>

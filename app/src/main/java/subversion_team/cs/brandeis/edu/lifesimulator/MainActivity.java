@@ -1,90 +1,89 @@
 package subversion_team.cs.brandeis.edu.lifesimulator;
 
+import android.support.v7.app.AppCompatActivity;
+
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.os.Bundle;
-import android.view.View;
-import android.content.Intent;
-import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.Toast;
+import android.widget.*;
 
 public class MainActivity extends AppCompatActivity {
-
-    Button button_start, button_save, button_stop;
-    ImageButton button_user_profile;
+    private static SeekBar timer, size;
+    private static TextView timerTag, timerValue;
+    private static TextView sizeTag, sizeValue;
+    private static ListView configuration;
+    private static Button toSimulator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         //set all the buttons
-        setButtons();
+        locateAllComponents();
+
+        toSimulator.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+
     }
 
-    private void setButtons() {
-        //set three buttons
-        button_save = (Button) findViewById(R.id.id_save);
-        button_start = (Button) findViewById(R.id.id_start);
-        button_stop = (Button) findViewById(R.id.id_stop);
-        button_user_profile = (ImageButton) findViewById(R.id.id_user_profile);
+    private void locateAllComponents() {
+        timer = (SeekBar) this.findViewById(R.id.refresh_rate_slider);
+        size = (SeekBar) this.findViewById(R.id.grid_size_slider);
+
+        timerTag = (TextView) this.findViewById(R.id.timer_rate_text);
+        timerValue = (TextView) this.findViewById(R.id.timer_value);
+
+        sizeTag = (TextView) this.findViewById(R.id.grid_size_text);
+        sizeValue = (TextView) this.findViewById(R.id.size_value);
+
+        configuration = (ListView) this.findViewById(R.id.table_view);
+
+        toSimulator = (Button) this.findViewById(R.id.click_to_simulator);
     }
 
-    public void onClick(View v) {
+    public void setTimerSeekBar() {
+        timerValue.setText("Grid Refresh Rate: " + timer.getProgress() + "s" + " / " + timer.getMax() + "s");
+        timer.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
 
-        switch (v.getId()) {
-            case R.id.id_start:
-                start_game(v);
-                break;
-            case R.id.id_stop:
-                //stop_game(v);
-                break;
-            case R.id.id_save:
-                //save_pic(v);
-                break;
-            case R.id.id_user_profile:
-                goto_userprofile(v);
-                break;
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+                @Override
+                public void onStopTrackingTouch(SeekBar seekBar) {
+
+                }
+            });
+        }
+
+        private void setSizeSeekBar() {
+            sizeValue.setText("Grid Size: " + size.getProgress()*10 + " / " + size.getMax());
+            size.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+                @Override
+                public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+
+                }
+
+                @Override
+                public void onStartTrackingTouch(SeekBar seekBar) {
+
+                }
+
+                @Override
+                public void onStopTrackingTouch(SeekBar seekBar) {
+
+                }
+            });
         }
     }
-
-    //send intent to start game
-    public void start_game(View view) {
-        Intent intent = new Intent(this, World.class);
-        startActivity(intent);
-        startActivityForResult(intent,1);
-    }
-
-    //send intent to stop game
-//    public void stop_game(View view)
-//    {
-//
-//    }
-//
-//    //send intent to save game
-//    public void save_pic(View view)
-//    {
-//
-//    }
-
-    //send intent to user profile
-    public void goto_userprofile(View view)
-    {
-        Intent intent = new Intent(this, UserProfile.class);
-        startActivity(intent);
-    }
-
-
-    //get results back and dispaly it
-//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-//
-//        if (requestCode == 1) {
-//            if(resultCode == Activity.RESULT_OK){
-//                String result=data.getStringExtra("result");
-//                Toast.makeText(this, "The last conversion was: "+result, Toast.LENGTH_LONG).show();
-//            }
-//        }
-//    }
-}

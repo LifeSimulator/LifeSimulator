@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
 
         switch (v.getId()) {
             case R.id.id_start:
-                //start_game(v);
+                start_game(v);
                 break;
             case R.id.id_stop:
                 //stop_game(v);
@@ -50,13 +50,12 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-//    //send intent to start game
-//    public void start_game(View view)
-//    {
-//        //Intent intent = new Intent(this, UtilityActivity.class);
-//        //startActivity(intent);
-//        //startActivityForResult(intent,1);
-//    }
+    //send intent to start game
+    public void start_game(View view) {
+        Intent intent = new Intent(this, World.class);
+        startActivity(intent);
+        startActivityForResult(intent,1);
+    }
 
     //send intent to stop game
 //    public void stop_game(View view)

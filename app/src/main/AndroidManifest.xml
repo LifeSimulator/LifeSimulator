@@ -26,7 +26,7 @@
             android:label="@string/title_activity_login"></activity>
         <activity android:name=".MainActivity" />
         <activity android:name=".UserProfile" />
-
+        <activity android:name=".World"></activity>
     </application>
 
 </manifest>

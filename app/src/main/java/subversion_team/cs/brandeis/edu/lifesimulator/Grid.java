@@ -8,38 +8,59 @@ import java.util.*;
 
 public class Grid {
     int size;
-    Cell[][] grid;
+    public Cell[][] grid;
 
     public Grid(int size) {
+        //Log.d("xiiiiiiiiiiiiiiiiiii", "Gridnew: ");
         this.size = size;
         this.grid = new Cell[size][size];
-        populateGrid();
+        populateGrid(grid);
     }
 
-    public void populateGrid() {
-        for (int i = 0; i < grid.length; i++) {
-            for (int j = 0; j < grid[i].length; j++) {
-                this.grid[i][j] = new Cell();
+    public void populateGrid(Cell[][] g) {
+        //Log.d("xiiiiiiiiiiiiiiiiiii", "Gridpopulate: ");
+        for (int i = 0; i < g.length; i++) {
+            for (int j = 0; j < g[i].length; j++) {
+                g[i][j] = new Cell();
             }
         }
+
     }
 
     public void next() {
+        Cell[][] tmpGrid = new Cell[size][size];
+        populateGrid(tmpGrid);
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
-                this.grid[i][j].setState(this.nextState(this.grid[i][j], i, j));
+                //Log.d("xiiiiiiiiiiiiiiiiiii", "x:"+i+" y:"+j);
+                tmpGrid[i][j].setState(this.nextState(this.grid[i][j], i, j));
             }
         }
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                this.grid[i][j].setState(tmpGrid[i][j].getState());
+            }
+        }
+    }
+
+    public void setBorn(int i, int j){
+        this.grid[i][j].setState(CellState.BORN);
     }
 
     public CellState nextState(Cell currCell, int row, int col) {
                 //then get its state
                 int livingNeighbours = numOfLivingCellsNeighbours(row, col);
                 if (currCell.ifAlive()) {
-                    if (livingNeighbours == 2 || livingNeighbours == 3) return CellState.ALIVE;
-                    else return CellState.DIED;
+                    if (livingNeighbours == 2 || livingNeighbours == 3) {
+                        return CellState.ALIVE;
+                    } else {
+                        return CellState.DIED;
+                    }
                 } else {
-                    if (livingNeighbours == 3) return CellState.BORN;
+
+                    if (livingNeighbours == 3) {
+                        return CellState.BORN;
+                    }
                 }
                 return CellState.EMPTY;
         }
@@ -54,9 +75,12 @@ public class Grid {
                 int rowIndex = floorMod(row + i, size);
                 int colIndex = floorMod(col + j, size);
                 //then check the cell state for this position
-                if (this.grid[rowIndex][colIndex].ifAlive()) counter++;
+                if (this.grid[rowIndex][colIndex].ifAlive()) {
+                    counter++;
+                }
             }
         }
+        //Log.d("xiiiiiiiiiiiiiiiiiii", "counter: "+counter);
         return counter;
     }
 

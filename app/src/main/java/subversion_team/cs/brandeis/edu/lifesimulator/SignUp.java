@@ -28,21 +28,34 @@ public class SignUp extends Activity{
 
             @Override
             public void onClick(View v) {
-                EditText email = (EditText)findViewById(R.id.email);
-                EditText pass1 = (EditText)findViewById(R.id.password);
-                EditText pass2 = (EditText)findViewById(R.id.repassword);
+                EditText email = (EditText) findViewById(R.id.email);
+                EditText pass1 = (EditText) findViewById(R.id.password);
+                EditText pass2 = (EditText) findViewById(R.id.repassword);
 
-                String emailstr= email.getText().toString();
-                String pass1str= pass1.getText().toString();
-                String pass2str= pass2.getText().toString();
+                String emailstr = email.getText().toString();
+                String pass1str = pass1.getText().toString();
+                String pass2str = pass2.getText().toString();
 
 
-                if(!pass1str.equals(pass2str)){
+                if (!pass1str.equals(pass2str)) {
                     Toast pass = Toast.makeText(SignUp.this, "Passwords don't match!", Toast.LENGTH_SHORT);
                     pass.show();
+                }else if(pass1str.length() < 6){
+                    Toast infoPass = Toast.makeText(SignUp.this, "The length passwords is too short. Please make your password have at least 6 characters", Toast.LENGTH_SHORT);
+                    infoPass.show();
+                }else if(!emailstr.contains("@")){
+                    Toast infoPass = Toast.makeText(SignUp.this, "Not a valid email address. Please enter another one", Toast.LENGTH_SHORT);
+                    infoPass.show();
                 }else{
-                    Contact c = new Contact(emailstr,pass1str);
-                    helper.insertContact(c);
+                    if(helper.isEmailExisted(emailstr)){
+                        Toast emailError = Toast.makeText(SignUp.this, "Email has been registered! Try another one!", Toast.LENGTH_SHORT);
+                        emailError.show();
+                    }else {
+                        Contact c = new Contact(emailstr, pass1str);
+                        helper.insertContact(c);
+                        Toast suss = Toast.makeText(SignUp.this, "Successfully registered!", Toast.LENGTH_SHORT);
+                        suss.show();
+                    }
                 }
             }
         };

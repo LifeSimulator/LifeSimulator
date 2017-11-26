@@ -15,10 +15,26 @@
     <string name="register">Register</string>
     <string name="action_sign_in_short">Sign in</string>
     <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_not_registered_email">This email address is not registered</string>
     <string name="error_invalid_password">This password is too short</string>
     <string name="error_incorrect_password">This password is incorrect</string>
     <string name="error_field_required">This field is required</string>
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
+
+    <string name="app_name2">Achievements Demo</string>
+    <string name="a_name_placeholder">Achievement Name</string>
+    <string name="a_desc_placeholder">Achievement Description</string>
+
+    <!-- Database -->
+    <string name="DB_NAME">GameData</string>
+
+    <!-- Achievements table -->
+    <string name="A_TABLE_NAME">achievements</string>
+    <string name="A_COL_ID">_id</string>
+    <string name="A_COL_NAME">name</string>
+    <string name="A_COL_DESCRIPTION">description</string>
+    <string name="A_COL_ICON">icon</string>
+    <string name="A_COL_EARNED">earned</string>
 </resources>

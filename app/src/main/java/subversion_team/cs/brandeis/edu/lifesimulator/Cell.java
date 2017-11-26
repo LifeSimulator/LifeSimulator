@@ -23,21 +23,6 @@ public class Cell {
         }
     }
 
-    /*
-     * @param, currState
-     * @return a new cellstate
-     * @TO-DO, change the cell state based on its previous state
-     */
-    CellState toggle(CellState currState) {
-        switch (currState) {
-            case EMPTY: case DIED:
-                return CellState.ALIVE;
-            case ALIVE: case BORN:
-                return CellState.EMPTY;
-            default:
-                return null;
-        }
-    }
 
     CellState getState() { return this.state; }
 

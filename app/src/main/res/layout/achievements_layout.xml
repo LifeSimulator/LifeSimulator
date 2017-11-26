@@ -17,11 +17,6 @@
             <!--android:layout_height="wrap_content"-->
             <!--android:src="@mipmap/trophy" />-->
 
-
-
-
-
-
             <!--<TextView-->
                 <!--android:id="@+id/achievement"-->
                 <!--android:layout_width="wrap_content"-->

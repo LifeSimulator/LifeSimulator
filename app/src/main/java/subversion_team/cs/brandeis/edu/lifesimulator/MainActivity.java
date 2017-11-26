@@ -22,13 +22,49 @@ public class MainActivity extends AppCompatActivity {
         //set all the buttons
         locateAllComponents();
 
-        toSimulator.setOnClickListener(new View.OnClickListener() {
+        timer.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
-            public void onClick(View v) {
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+
+                timerValue.setText("Grid Refresh Rate: " + timer.getProgress() + "times/s");
+            }
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
 
             }
         });
 
+        size.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                sizeValue.setText("Grid Size: " + size.getProgress()*5 + " / " + size.getMax()*5);
+            }
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+            }
+        });
+
+        toSimulator.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent it = new Intent(getApplicationContext(), World.class);
+                if(timer.getProgress()==0) {
+                    it.putExtra("timeRate", 0);
+                } else {
+                    it.putExtra("timeRate", 500/timer.getProgress());
+                }
+                it.putExtra("size", size.getProgress()*5);
+                startActivity(it);
+            }
+        });
 
     }
 
@@ -47,43 +83,5 @@ public class MainActivity extends AppCompatActivity {
         toSimulator = (Button) this.findViewById(R.id.click_to_simulator);
     }
 
-    public void setTimerSeekBar() {
-        timerValue.setText("Grid Refresh Rate: " + timer.getProgress() + "s" + " / " + timer.getMax() + "s");
-        timer.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
 
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
-
-                @Override
-                public void onStopTrackingTouch(SeekBar seekBar) {
-
-                }
-            });
-        }
-
-        private void setSizeSeekBar() {
-            sizeValue.setText("Grid Size: " + size.getProgress()*10 + " / " + size.getMax());
-            size.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-                @Override
-                public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-
-                }
-
-                @Override
-                public void onStartTrackingTouch(SeekBar seekBar) {
-
-                }
-
-                @Override
-                public void onStopTrackingTouch(SeekBar seekBar) {
-
-                }
-            });
-        }
-    }
+}

@@ -29,6 +29,7 @@
         <activity android:name=".SimulatorActivity" />
         <activity android:name=".UserProfile" />
         <activity android:name=".World" />
+        <activity android:name=".Achievements"></activity>
     </application>
 
 </manifest>

@@ -9,4 +9,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Hello User!" />
+
+    <Button
+        android:id="@+id/btn_view_achievements"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="viewAchievements"
+        android:text="@string/view_achievements" />
 </LinearLayout>

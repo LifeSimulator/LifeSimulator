@@ -70,6 +70,7 @@
         android:layout_above="@+id/table_view"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="12dp"
+        android:onClick="start_game"
         android:text="Simulator" />
 
 

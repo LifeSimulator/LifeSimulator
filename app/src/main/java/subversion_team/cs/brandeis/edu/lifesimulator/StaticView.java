@@ -20,6 +20,8 @@ public class StaticView extends View {
     public Grid grid;
     private Paint painter;
 
+    public static int born, alive, empty, dead, iter;
+
     public StaticView (Context context, int size, int sideLength) {
         super(context);
         this.painter = new Paint();
@@ -29,6 +31,24 @@ public class StaticView extends View {
         setFocusable(true);
         setFocusableInTouchMode(true);
     }
+    
+    public void resetGrid() {
+        Log.d("xiiiiiiiiiiiiiiiiii", "reset grid: ");
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                grid.grid[i][j].setState(CellState.EMPTY);
+            }
+
+        }
+    }
+
+    public void resetData(){
+        born = 0;
+        alive = 0;
+        empty = 0;
+        dead = 0;
+        iter = 0;
+    }
 
     public Grid getGrid(){ return grid; }
 
@@ -37,18 +57,22 @@ public class StaticView extends View {
 
         painter.setStrokeWidth(3.0f);
         //grid.next();
-
+        iter++;
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
                 switch (grid.grid[i][j].getState()){
                     case BORN:
+                        born++;
                         painter.setColor(Color.argb(100 ,128, 255, 128)); break;
                     case ALIVE:
+                        alive++;
                         painter.setColor(Color.argb(100, 255, 51, 0)); break;
                     case DIED:
+                        dead++;
                         //painter.setColor(Color.argb(100, 255, 166, 77)); break;
                         painter.setColor(Color.argb(100, 80, 152, 193)); break;
                     case EMPTY:
+                        empty++;
                         painter.setColor(Color.argb(100, 80, 152, 193)); break;
                     default:
                         break;

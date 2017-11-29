@@ -12,12 +12,187 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-
         android:layout_alignParentTop="true">
 
     </FrameLayout>
+    <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/frameLayout">
+
+        <TableRow
+            android:id="@+id/tableRow1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_span="2"
+            android:padding="5dip"
+            android:stretchColumns="*">
+
+            <ImageView
+                android:id="@+id/trophyView1"
+                android:adjustViewBounds="true"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/trophy" />
+
+            <TextView
+                android:id="@+id/iter"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:adjustViewBounds="true"
+                android:scaleType="centerCrop"
+                android:text="# of Iterations:"
+                android:gravity="center_vertical|center_horizontal|center"
+                android:src="@mipmap/trophy" />
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:id="@+id/iteration"
+                android:gravity="center_vertical|center_horizontal|center"
+                android:text="0"
+                />
+        </TableRow>
+
+        <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true">
+
+            <TableRow
+                android:id="@+id/subtableRow1"
+                android:stretchColumns="*"
+                android:layout_span="4"
+                android:padding="5dip">
+
+                <TextView
+                    android:id="@+id/born"
+                    android:adjustViewBounds="true"
+                    android:scaleType="centerCrop"
+                    android:text="# of Newborn Cells:"
+                    android:src="@mipmap/trophy" />
+
+                <TextView
+                    android:id="@+id/borndata"
+                    android:text="0"
+                    />
+
+                <Space
+                    android:layout_width="100dp"
+                    android:layout_height="15dp"/>
+
+                <TextView
+                    android:id="@+id/live"
+                    android:adjustViewBounds="true"
+                    android:scaleType="centerCrop"
+                    android:src="@mipmap/trophy"
+                    android:text="# of Live Cells:" />
+
+                <TextView
+                    android:id="@+id/livedata"
+                    android:text="0" />
 
 
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/subtableRow2"
+                android:stretchColumns="*"
+                android:layout_span="2"
+                android:padding="5dip">
+
+                <TextView
+                    android:id="@+id/dead"
+                    android:adjustViewBounds="true"
+                    android:scaleType="centerCrop"
+                    android:text="# of Dead Cells:"
+                    android:src="@mipmap/trophy" />
+
+                <TextView
+                    android:id="@+id/deaddata"
+                    android:text="0"
+                    />
+
+                <Space
+                    android:layout_width="100dp"
+                    android:layout_height="15dp"/>
+
+                <TextView
+                    android:id="@+id/empty"
+                    android:adjustViewBounds="true"
+                    android:scaleType="centerCrop"
+                    android:text="# of Empty Cells:"
+                    android:src="@mipmap/trophy" />
+
+                <TextView
+                    android:id="@+id/emptydata"
+                    android:text="0"
+                    />
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/subtableRow3"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_span="2"
+                android:padding="5dip"
+                android:stretchColumns="*">
+
+                <!--<TextView-->
+                    <!--android:id="@+id/live"-->
+                    <!--android:adjustViewBounds="true"-->
+                    <!--android:scaleType="centerCrop"-->
+                    <!--android:src="@mipmap/trophy"-->
+                    <!--android:text="# of Live Cells:" />-->
+
+                <!--<TextView-->
+                    <!--android:id="@+id/livedata"-->
+                    <!--android:text="0" />-->
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/subtableRow4"
+                android:stretchColumns="*"
+                android:layout_span="2"
+                android:padding="5dip">
+
+                <!--<TextView-->
+                    <!--android:id="@+id/empty"-->
+                    <!--android:adjustViewBounds="true"-->
+                    <!--android:scaleType="centerCrop"-->
+                    <!--android:text="# of Empty Cells:"-->
+                    <!--android:src="@mipmap/trophy" />-->
+
+                <!--<TextView-->
+                    <!--android:id="@+id/emptydata"-->
+                    <!--android:text="0"-->
+                    <!--/>-->
+            </TableRow>
+
+            <!--<TableRow-->
+                <!--android:id="@+id/subtableRow5"-->
+                <!--android:stretchColumns="*"-->
+                <!--android:layout_span="2"-->
+                <!--android:padding="5dip">-->
+
+                <!--<TextView-->
+                    <!--android:id="@+id/iter"-->
+                    <!--android:adjustViewBounds="true"-->
+                    <!--android:scaleType="centerCrop"-->
+                    <!--android:text="# of Iterations:"-->
+                    <!--android:src="@mipmap/trophy" />-->
+
+                <!--<TextView-->
+                    <!--android:id="@+id/iteration"-->
+                    <!--android:text="0"-->
+                    <!--/>-->
+            <!--</TableRow>-->
+
+        </TableLayout>
+
+    </TableLayout>
     <Button
         android:id="@+id/button_stop"
         android:layout_width="wrap_content"
@@ -25,8 +200,8 @@
         android:onClick="stop"
         android:text="Stop"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="50dp" />
+        android:layout_toEndOf="@+id/button_start"
+        android:layout_marginStart="30dp" />
 
     <Button
         android:id="@+id/button_start"
@@ -36,7 +211,15 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
         android:layout_marginStart="48dp" />
+        
+    <ImageButton
+        android:id="@+id/user_profile"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:onClick="toUserProfile"
+        app:srcCompat="@mipmap/user" />
 
 
 </RelativeLayout>
-

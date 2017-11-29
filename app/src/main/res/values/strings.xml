@@ -37,6 +37,5 @@
     <string name="A_COL_DESCRIPTION">description</string>
     <string name="A_COL_ICON">icon</string>
     <string name="A_COL_EARNED">earned</string>
-
     <string name="user_profile">User Profile</string>
 </resources>

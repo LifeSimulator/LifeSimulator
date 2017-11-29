@@ -1,7 +1,5 @@
 package subversion_team.cs.brandeis.edu.lifesimulator;
 
-import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -20,7 +18,6 @@ import android.widget.TextView;
  * Created by xichen on 11/1/17.
  * Modified by amgoncalves on 11/28/2017
  */
-
 @SuppressWarnings("deprecation")
 public class UserProfile extends AppCompatActivity {
 

@@ -206,8 +206,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             showProgress(true);
             mAuthTask = new UserLoginTask(email, password);
             userEmail = email;
-            helper.addAchievement(DatabaseHelper.a1Name, userEmail);
-            Log.d(TAG,helper.getAchievement(userEmail));
+            helper.updateCurrentUser(email);
+            Log.d("USER LOGIN", "User " + helper.getCurrentUserEmail() + " is now logged in.");
             mAuthTask.execute((Void) null);
         }
     }
@@ -223,7 +223,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     }
 
     /**
-     * Shows the progress UI and hides the login form.
+     * Shows the progress UI and hides the login form.test@gmail.comtest
      */
     @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
     private void showProgress(final boolean show) {

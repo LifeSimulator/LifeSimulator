@@ -18,10 +18,16 @@ import java.util.List;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
-    private static final int DATABASE_VERSION = 3;
+    private static final int DATABASE_VERSION = 5;
     private static final String DATABASE_NAME = "contacts.db";
 
     public static final String COL_ID = "_id";
+
+    // Sessions table
+    private static final String SESSION_TABLE_NAME = "session";
+    private static final String SESSION_COL_CURRENT_USER_EMAIL = "current_user_email";
+
+    private static final String[] SESSION_COLS = { COL_ID, SESSION_COL_CURRENT_USER_EMAIL };
 
     // Contacts table
     private static final String USERS_TABLE_NAME = "contacts";
@@ -60,6 +66,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             + USERS_COL_EMAIL + " text not null, "
             + USERS_COL_PASS + " text not null);";
 
+    // Builds Users table
+    private static final String CREATE_SESSION_TABLE = "create table " + SESSION_TABLE_NAME + "( "
+            + COL_ID + " integer primary key autoincrement, "
+            + SESSION_COL_CURRENT_USER_EMAIL + " text not null);";
+
     // Builds Join table
     private static final String CREATE_JOIN_TABLE = "create table " + JOIN_TABLE_NAME + "( "
             + COL_ID + " integer primary key autoincrement, "
@@ -84,9 +95,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(CREATE_USER_TABLE);
+        db.execSQL(CREATE_SESSION_TABLE);
         db.execSQL(CREATE_JOIN_TABLE);
         db.execSQL(CREATE_ACHIEVEMENT_TABLE);
         this.db = db;
+        addDefaultSession(db);
         List<Achievement> toAdd = cannedAchievements();
         for (Achievement a : toAdd)
             db.insert(A_TABLE_NAME, null,  buildCannedAChievementColumns(a));
@@ -97,9 +110,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String q1 = "DROP TABLE IF EXISTS " + USERS_TABLE_NAME;
         String q2 = "DROP TABLE IF EXISTS " + JOIN_TABLE_NAME;
         String q3 = "DROP TABLE IF EXISTS " + A_TABLE_NAME;
+        String q4 = "DROP TABLE IF EXISTS " + SESSION_TABLE_NAME;
         db.execSQL(q1);
         db.execSQL(q2);
         db.execSQL(q3);
+        db.execSQL(q4);
         this.onCreate(db);
     }
 
@@ -115,6 +130,51 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(USERS_COL_PASS, c.getPass());
         db.insert(USERS_TABLE_NAME,null,values);
         db.close();
+    }
+
+    /**
+     * Adds a single session to the database using a placeholder instead of an email ("default").
+     * Should only be done upon table creation.
+     */
+    private void addDefaultSession(SQLiteDatabase db) {
+        ContentValues cv = new ContentValues();
+        cv.put(SESSION_COL_CURRENT_USER_EMAIL, "default");
+        db.insert(SESSION_TABLE_NAME, null, cv);
+    }
+
+    /**
+     * Get the current user's email address from the session's table.
+     * @return  String containing the current user's email address.
+     */
+    public String getCurrentUserEmail() {
+        db = this.getReadableDatabase();
+        Cursor c = db.query(
+                SESSION_TABLE_NAME,
+                SESSION_COLS,
+                COL_ID + " = ?",
+                new String[] { String.valueOf(1) },
+                null,
+                null,
+                null,
+                null
+        );
+        c.moveToFirst();
+        return c.getString(1);
+    }
+
+    /**
+     * Updates the email address stored in the sessions table.
+     * @param email
+     */
+    public void updateCurrentUser(String email) {
+        db = this.getWritableDatabase();
+        ContentValues args = new ContentValues();
+        args.put(SESSION_COL_CURRENT_USER_EMAIL, email);
+        db.update(
+                SESSION_TABLE_NAME,
+                args,
+                COL_ID + " = 1",
+                null);
     }
 
     // Get Achievement's primary key id using achievement name
@@ -160,7 +220,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     /**
-     * Add an entry to the Achievements Join Table.  User's email is used to
+     * Add an entry to the achievement Join Table.  User's email is used to
      * lookup user's primary key ID, achievement's name is used to lookup the
      * achievement's primary key ID.
      *
@@ -171,18 +231,25 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         int userID = getUserPrimaryKey(userEmail);
         int achievementID = getAchievementPrimaryKey(achievementName);
         if (userID == -1 || achievementID == -1)
-            Log.d("NOT FOUND", "userID = " + userID + ", achID = " + achievementID);
+            Log.d("DATABSE HELPER", "Not found, userID = " + userID + ", achID = " + achievementID);
         else {
             db = this.getWritableDatabase();
             ContentValues cols = new ContentValues();
             cols.put(JOIN_COL_USER_ID, userID);
             cols.put(JOIN_COL_ACHIEVEMENT_ID, achievementID);
             db.insert(JOIN_TABLE_NAME, null, cols);
-            Log.d("ACHIEVEMENT ADDED", "user " + userEmail + " earned " + achievementName);
+            Log.d("DATABASE HELPER", "user " + userEmail + " earned " + achievementName);
             db.close();
         }
     }
 
+    /**
+     *
+     *
+     * @param userEmail
+     * @param achievementName
+     * @return
+     */
     public boolean hasUserEarnedAchievement(String userEmail, String achievementName) {
         int userID = getUserPrimaryKey(userEmail);
         int achievementID = getAchievementPrimaryKey(achievementName);
@@ -201,17 +268,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     /**
-    public void updateAchievement(String achievementName, String val, String email){
-        db = this.getWritableDatabase();
-        String whereClause = USERS_COL_EMAIL + " = " + "'" + email + "'";
-        ContentValues values = new ContentValues();
-        //Log.d(stupid,val);
-        values.put(achievementName, val);
-        db.update(JOIN_TABLE_NAME,values,whereClause,null);
-        db.close();
-    }
-     */
-
     public String getAchievement(String email){
         db = this.getReadableDatabase();
         String query = "SELECT " + JOIN_COL_USER_ID + ", " + JOIN_COL_ACHIEVEMENT_ID + " FROM " + JOIN_TABLE_NAME;
@@ -219,7 +275,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String a, b;
         b = "not found";
         if(cursor.moveToFirst()){
-            do{
+            do {
                 a = cursor.getString(0);
                 if(a.equals(email)){
                     b = cursor.getString(1);
@@ -228,7 +284,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             }while(cursor.moveToNext());
         }
         return b;
-    }
+    }*/
 
     public boolean isEmailExisted(String email){
         db = this.getReadableDatabase();

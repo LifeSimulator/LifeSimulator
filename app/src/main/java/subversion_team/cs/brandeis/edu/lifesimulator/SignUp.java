@@ -3,6 +3,7 @@ package subversion_team.cs.brandeis.edu.lifesimulator;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -55,6 +56,10 @@ public class SignUp extends Activity{
                         helper.insertContact(c);
                         Toast suss = Toast.makeText(SignUp.this, "Successfully registered!", Toast.LENGTH_SHORT);
                         suss.show();
+
+                        // Gives the user the n00b achievement for signing up and creating an account
+                        helper.addAchievement(DatabaseHelper.a1Name, emailstr);
+                        Log.d("SIGNUP", "User " + emailstr + " earned " + DatabaseHelper.a1Name);
                     }
                 }
             }

@@ -29,7 +29,8 @@ public class SplashScreen extends AppCompatActivity {
         StartAnimations();
 
         /* New Handler to start the Menu-Activity
-         * and close this Splash-Screen after some seconds.*/
+         * and close this Splash-Screen after some seconds.
+         */
 //        Thread myThread = new Thread(){
 //
 //            @Override

@@ -19,6 +19,9 @@ public class MainActivity extends AppCompatActivity {
     ImageButton glider, blinker, gun;
     int[][] glider_seed, blinker_seed, gun_seed;
 
+    DatabaseHelper helper;
+    String userEmail;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,6 +36,9 @@ public class MainActivity extends AppCompatActivity {
                 {4,21},{4,22},{4,35},{4,36},{5,1},{5,2},{5,11},{5,17},{5,21},{5,22},{6,1},{6,2},{6,11},{6,15},{6,17},{6,18},{6,23},
                 {6,25},{7,11},{7,17},{7,25},{8, 12},{8,16},{9, 13},{9, 14}};
         locateAllComponents();
+
+        helper = new DatabaseHelper(this);
+        userEmail = helper.getCurrentUserEmail();
 
         timer.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
@@ -104,6 +110,10 @@ public class MainActivity extends AppCompatActivity {
         mBundle.putSerializable("seed", glider_seed);
         it.putExtras(mBundle);
         Log.d("xiiiiiiiiiiiiiiiiii", Arrays.deepToString(glider_seed));
+
+        helper.addAchievement(DatabaseHelper.a4Name, userEmail);
+        Log.d("SEED", "User " + userEmail + " earned " + DatabaseHelper.a4Name);
+
         startActivity(it);
     }
     public void blinker(View v) {
@@ -115,6 +125,10 @@ public class MainActivity extends AppCompatActivity {
         mBundle.putSerializable("seed", blinker_seed);
         it.putExtras(mBundle);
         Log.d("xiiiiiiiiiiiiiiiiii", Arrays.deepToString(blinker_seed));
+
+        helper.addAchievement(DatabaseHelper.a3Name, userEmail);
+        Log.d("SEED", "User " + userEmail + " earned " + DatabaseHelper.a3Name);
+
         startActivity(it);
     }
     public void gun(View v) {
@@ -126,6 +140,10 @@ public class MainActivity extends AppCompatActivity {
         mBundle.putSerializable("seed", gun_seed);
         it.putExtras(mBundle);
         Log.d("xiiiiiiiiiiiiiiiiii", Arrays.deepToString(gun_seed));
+
+        helper.addAchievement(DatabaseHelper.a5Name, userEmail);
+        Log.d("SEED", "User " + userEmail + " earned " + DatabaseHelper.a5Name);
+
         startActivity(it);
     }
 

@@ -26,6 +26,9 @@ public class World extends AppCompatActivity {
     ImageButton toProfile;
     private int[][] seeds = null;
 
+    private DatabaseHelper helper;
+    private String userEmail;
+
     public static int born, alive, empty, dead, iter;
     TextView borndata, alivedata,deaddata, emptydata, iterdata;// Added by Zhengayng
 
@@ -33,6 +36,8 @@ public class World extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         toProfile = (ImageButton) findViewById(R.id.user_profile) ;
         super.onCreate(savedInstanceState);
+        helper = new DatabaseHelper(this);
+        userEmail = helper.getCurrentUserEmail();
         setContentView(R.layout.activity_world);
 
         Intent it = getIntent();
@@ -76,6 +81,10 @@ public class World extends AppCompatActivity {
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         this.boardLength = displayMetrics.widthPixels;
+        if (boardLength == 0)
+            boardLength = 1;
+        if (size == 0)
+            size = 1;
         this.sideLength = boardLength/size;
     }
 
@@ -96,6 +105,11 @@ public class World extends AppCompatActivity {
     public void setButton(){
         button_start.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                if (!helper.hasUserEarnedAchievement(userEmail, DatabaseHelper.a2Name)) {
+                    helper.addAchievement(DatabaseHelper.a2Name, userEmail);
+                    Log.d("SEED", "User " + userEmail + " earned " + DatabaseHelper.a2Name);
+                }
+
                 //Log.d("xiiiiiiiiiiiiiiiiii", "timerate2: "+timeRate);
                 if(!restart) {
                     Log.d("xiiiiiiiiiiiiiiiiii", "restart=true ");

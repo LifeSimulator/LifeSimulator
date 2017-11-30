@@ -38,4 +38,8 @@
     <string name="A_COL_ICON">icon</string>
     <string name="A_COL_EARNED">earned</string>
     <string name="user_profile">User Profile</string>
+
+    <!-- User profile page -->
+    <string name="back">Back</string>
+    <string name="achievements_label">Achievements:</string>
 </resources>

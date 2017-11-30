@@ -26,7 +26,6 @@
             android:label="@string/title_activity_login" />
         <activity android:name=".SignUp" />
         <activity android:name=".MainActivity" />
-        <activity android:name=".SimulatorActivity" />
         <activity android:name=".UserProfile" />
         <activity android:name=".World" />
     </application>

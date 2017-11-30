@@ -18,7 +18,7 @@ import java.util.List;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
-    private static final int DATABASE_VERSION = 7;
+    private static final int DATABASE_VERSION = 8;
     private static final String DATABASE_NAME = "contacts.db";
 
     public static final String COL_ID = "_id";
@@ -57,6 +57,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private List<String> allAchievementNames;
     public static final String a1Name = "n00b";
     public static final String a2Name = "First Generation";
+    public static final String a3Name = "Blinker";
+    public static final String a4Name = "Glider";
+    public static final String a5Name = "Glider Gun";
+    public static final String aZedName = "Impossible";
+
 
     SQLiteDatabase db;
 
@@ -264,41 +269,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 null,
                 null
         );
-        return cursor != null;
+        if (cursor == null)
+            return false;
+        else if (cursor.getCount() == 0)
+            return false;
+        return true;
     }
-
-    /**
-     public String getAchievement(String email){
-     db = this.getReadableDatabase();
-     String query = "SELECT " + JOIN_COL_USER_ID + ", " + JOIN_COL_ACHIEVEMENT_ID + " FROM " + JOIN_TABLE_NAME;
-     Cursor cursor = db.rawQuery(query,null);
-     String a, b;
-     b = "not found";
-     if(cursor.moveToFirst()){
-     do {
-     a = cursor.getString(0);
-     if(a.equals(email)){
-     b = cursor.getString(1);
-     break;
-     }
-     }while(cursor.moveToNext());
-     }
-     return b;
-     }*/
 
     public boolean isEmailExisted(String email){
         db = this.getReadableDatabase();
         String query = "SELECT " + USERS_COL_EMAIL + " FROM " + USERS_TABLE_NAME + " WHERE " + USERS_COL_EMAIL + " = ?";
         Cursor cursor = db.rawQuery(query,new String[] {email});
-//        String a  = null;
-//        if(cursor.moveToFirst()){
-//            do{
-//                a = cursor.getString(0);
-//                if(a.equals(email) && a != null){
-//                    break;
-//                }
-//            }while(cursor.moveToNext());
-//        }
         if(!cursor.moveToFirst()){
             return false;
         }else{
@@ -350,10 +331,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public List<Achievement> cannedAchievements() {
         Achievement a1 = new Achievement(a1Name, "Create a new user account, wow, that was easy, wasn't it?", "n/a", false);
         Achievement a2 = new Achievement(a2Name, "Start one game of life.", "n/a", false);
+        Achievement a3 = new Achievement(aZedName, "It is impossible to get this achievement.", "n/a", false);
+        Achievement a4 = new Achievement(a3Name, "Start a game with the blinker seed.", "n/a", false);
+        Achievement a5 = new Achievement(a4Name, "Start a game with the glider seed.", "n/a", false);
+        Achievement a6 = new Achievement(a5Name, "Start a game with the glider gun seed.", "n/a", false);
 
         List<Achievement> achievements = new LinkedList<Achievement>();
         achievements.add(a1);
         achievements.add(a2);
+        achievements.add(a3);
+        achievements.add(a4);
+        achievements.add(a5);
+        achievements.add(a6);
 
         allAchievementNames = new LinkedList<String>();
         allAchievementNames.add(a1Name);
